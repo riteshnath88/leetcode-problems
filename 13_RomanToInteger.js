@@ -38,112 +38,68 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  * ******************************************************************************/
 
 var intToRoman = function (num) {
-  let val = num;
-  let inRoman = "";
-  let quotient;
-  let tempValue;
+  let arr = s.split("");
+  let intValue = 0;
 
-  //Dealing with the boundary cases:
-
-  switch (true) {
-    case num == 4:
-      return "IV";
-    case num == 9:
-      return "IX";
-    case num == 40:
-      return "XL";
-    case num == 90:
-      return "XC";
-    case num == 400:
-      return "CD";
-    case num == 900:
-      return "CM";
-    default:
-      break;
-  }
-
-  //Conversiion logic for int to roman - instead of writing the same code in each of the block, we should create a function for it.
-  while (val != 0) {
-    switch (true) {
-      case val >= 1000:
-        quotient = Math.floor(val / 1000);
-        tempValue = "M".repeat(quotient);
-        inRoman = inRoman + tempValue;
-        val = val % 1000;
-        break;
-
-      case val >= 500 && val < 1000:
-        if (val >= 900) {
-          inRoman = inRoman + "CM";
-          val = val - 900;
-          break;
-        }
-        quotient = Math.floor(val / 500);
-        tempValue = "D".repeat(quotient);
-        inRoman = inRoman + tempValue;
-        val = val % 500;
-        break;
-
-      case val >= 100 && val < 500:
-        if (val >= 400) {
-          inRoman = inRoman + "CD";
-          val = val - 400;
-          break;
-        }
-        quotient = Math.floor(val / 100);
-        tempValue = "C".repeat(quotient);
-        inRoman = inRoman + tempValue;
-        val = val % 100;
-        break;
-
-      case val >= 50 && val < 100:
-        if (val >= 90) {
-          inRoman = inRoman + "XC";
-          val = val - 90;
-          break;
-        }
-        quotient = Math.floor(val / 50);
-        tempValue = "L".repeat(quotient);
-        inRoman = inRoman + tempValue;
-        val = val % 50;
-        break;
-
-      case val >= 10 && val < 50:
-        if (val >= 40) {
-          inRoman = inRoman + "XL";
-          val = val - 40;
-          break;
-        }
-        quotient = Math.floor(val / 10);
-        tempValue = "X".repeat(quotient);
-        inRoman = inRoman + tempValue;
-        val = val % 10;
-        break;
-
-      case val >= 5 && val < 10:
-        if (val >= 9) {
-          inRoman = inRoman + "IX";
-          val = val - 9;
-          break;
-        }
-        quotient = Math.floor(val / 5);
-        tempValue = "V".repeat(quotient);
-        inRoman = inRoman + tempValue;
-        val = val % 5;
-        break;
-
-      case val >= 1 && val < 5:
-        if (val >= 4) {
-          inRoman = inRoman + "IV";
-          val = val - 4;
-          break;
-        }
-        tempValue = "I".repeat(val);
-        inRoman = inRoman + tempValue;
-        val = 0;
-        break;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == "I" && arr[i + 1] == "V") {
+      intValue += 4;
+      i++;
+      continue;
     }
-    //console.log(inRoman);
+    if (arr[i] == "I" && arr[i + 1] == "X") {
+      intValue += 9;
+      i++;
+      continue;
+    }
+    if (arr[i] == "X" && arr[i + 1] == "L") {
+      intValue += 40;
+      i++;
+      continue;
+    }
+    if (arr[i] == "X" && arr[i + 1] == "C") {
+      intValue += 90;
+      i++;
+      continue;
+    }
+    if (arr[i] == "C" && arr[i + 1] == "D") {
+      intValue += 400;
+      i++;
+      continue;
+    }
+    if (arr[i] == "C" && arr[i + 1] == "M") {
+      intValue += 900;
+      i++;
+      continue;
+    }
+    if (arr[i] == "M") {
+      intValue += 1000;
+      continue;
+    }
+    if (arr[i] == "D") {
+      intValue += 500;
+      continue;
+    }
+    if (arr[i] == "C") {
+      intValue += 100;
+      continue;
+    }
+    if (arr[i] == "L") {
+      intValue += 50;
+      continue;
+    }
+    if (arr[i] == "X") {
+      intValue += 10;
+      continue;
+    }
+    if (arr[i] == "V") {
+      intValue += 5;
+      continue;
+    }
+    if (arr[i] == "I") {
+      intValue += 1;
+      continue;
+    }
   }
-  return inRoman;
+  return intValue;
 };
